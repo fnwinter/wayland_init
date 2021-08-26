@@ -18,10 +18,9 @@
 #include <GL/glext.h>
 
 // Required headers for windowing, as well as the XrGraphicsBindingOpenGLXlibKHR struct.
-#include <X11/Xlib.h>
 #include <GL/glx.h>
 
-#define XR_USE_PLATFORM_XLIB
+#define XR_USE_PLATFORM_WAYLAND
 #define XR_USE_GRAPHICS_API_OPENGL
 #include "openxr_headers/openxr.h"
 #include "openxr_headers/openxr_platform.h"
@@ -30,8 +29,8 @@
 #error Only Linux/XLib supported for now
 #endif
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_events.h>
+//#include <SDL2/SDL.h>
+//#include <SDL2/SDL_events.h>
 
 #define degrees_to_radians(angle_degrees) ((angle_degrees)*M_PI / 180.0)
 #define radians_to_degrees(angle_radians) ((angle_radians)*180.0 / M_PI)
@@ -44,7 +43,7 @@ static XrPosef identity_pose = {.orientation = {.x = 0, .y = 0, .z = 0, .w = 1.0
 #define HAND_RIGHT_INDEX 1
 #define HAND_COUNT 2
 
-
+#include "wayland_init.h"
 
 // =============================================================================
 // math code adapted from
@@ -500,7 +499,7 @@ main(int argc, char** argv)
 	XrSession session = XR_NULL_HANDLE;
 
 	// each graphics API requires the use of a specialized struct
-	XrGraphicsBindingOpenGLXlibKHR graphics_binding_gl;
+	XrGraphicsBindingOpenGLWaylandKHR graphics_binding_gl;
 
 	// each physical Display/Eye is described by a view.
 	// view_count usually depends on the form_factor / view_type.
@@ -697,8 +696,12 @@ main(int argc, char** argv)
 
 
 	// --- Create session
-	graphics_binding_gl = (XrGraphicsBindingOpenGLXlibKHR){
-	    .type = XR_TYPE_GRAPHICS_BINDING_OPENGL_XLIB_KHR,
+  wayland_init();
+
+	graphics_binding_gl = (XrGraphicsBindingOpenGLWaylandKHR){
+	    .type = XR_TYPE_GRAPHICS_BINDING_OPENGL_WAYLAND_KHR,
+      .display = w_display,
+      .next = NULL,
 	};
 
 	// create SDL window the size of the left eye & fill GL graphics binding info
@@ -1069,9 +1072,10 @@ main(int argc, char** argv)
 
 
 	// TODO: should not be necessary, but is for SteamVR 1.16.4 (but not 1.15.x)
+  /*
 	glXMakeCurrent(graphics_binding_gl.xDisplay, graphics_binding_gl.glxDrawable,
 	               graphics_binding_gl.glxContext);
-
+  */
 	// Set up rendering (compile shaders, ...) before starting the session
   /*
 	if (init_gl(view_count, swapchain_lengths, &gl_rendering.framebuffers,
@@ -1098,6 +1102,8 @@ main(int argc, char** argv)
 	while (!quit_mainloop) {
 
 		// --- Poll SDL for events so we can exit with esc
+    //
+    /*
 		SDL_Event sdl_event;
 		while (SDL_PollEvent(&sdl_event)) {
 			if (sdl_event.type == SDL_QUIT ||
@@ -1106,6 +1112,7 @@ main(int argc, char** argv)
 				xrRequestExitSession(session);
 			}
 		}
+    */
 
 
 		// --- Handle runtime Events
@@ -1413,14 +1420,17 @@ main(int argc, char** argv)
 			int h = viewconfig_views[i].recommendedImageRectHeight;
 
 			// TODO: should not be necessary, but is for SteamVR 1.16.4 (but not 1.15.x)
+      /*
 			glXMakeCurrent(graphics_binding_gl.xDisplay, graphics_binding_gl.glxDrawable,
 			               graphics_binding_gl.glxContext);
+      */
 
+      /*  
 			render_frame(w, h, gl_rendering.shader_program_id, gl_rendering.VAO,
 			             frame_state.predictedDisplayTime, i, hand_locations, projection_matrix,
 			             view_matrix, gl_rendering.framebuffers[i][acquired_index],
 			             images[i][acquired_index].image, depth.supported, depth_image);
-
+      */
 			XrSwapchainImageReleaseInfo release_info = {.type = XR_TYPE_SWAPCHAIN_IMAGE_RELEASE_INFO,
 			                                            .next = NULL};
 			result = xrReleaseSwapchainImage(swapchains[i], &release_info);
@@ -1509,8 +1519,8 @@ main(int argc, char** argv)
 #define MATH_3D_IMPLEMENTATION
 #include "math_3d.h"
 
-static SDL_Window* desktop_window;
-static SDL_GLContext gl_context;
+// static SDL_Window* desktop_window;
+// static SDL_GLContext gl_context;
 
 // don't need a gl loader for just one function, just load it ourselves'
 PFNGLBLITNAMEDFRAMEBUFFERPROC _glBlitNamedFramebuffer;
@@ -1529,7 +1539,7 @@ MessageCallback(GLenum source,
 }
 
 
-#ifdef __linux__
+#if 0
 bool
 init_sdl_window(Display** xDisplay,
                 uint32_t* visualid,

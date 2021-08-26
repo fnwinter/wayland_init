@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
   "/home/jungjik/dev/openxr-simple-example/main.c" "/home/jungjik/dev/openxr-simple-example/CMakeFiles/openxr-example.dir/main.c.o"
+  "/home/jungjik/dev/openxr-simple-example/wayland_init.c" "/home/jungjik/dev/openxr-simple-example/CMakeFiles/openxr-example.dir/wayland_init.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

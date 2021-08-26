@@ -7,3 +7,7 @@ CMakeFiles/openxr-example.dir/main.c.o
  /home/jungjik/dev/openxr-simple-example/openxr_headers/openxr.h
  /home/jungjik/dev/openxr-simple-example/openxr_headers/openxr_platform.h
  /home/jungjik/dev/openxr-simple-example/openxr_headers/openxr_platform_defines.h
+ /home/jungjik/dev/openxr-simple-example/wayland_init.h
+CMakeFiles/openxr-example.dir/wayland_init.c.o
+ /home/jungjik/dev/openxr-simple-example/wayland_init.c
+ /home/jungjik/dev/openxr-simple-example/wayland_init.h

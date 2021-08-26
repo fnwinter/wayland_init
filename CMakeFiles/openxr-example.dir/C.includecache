@@ -15,18 +15,14 @@ GL/gl.h
 -
 GL/glext.h
 -
-X11/Xlib.h
--
 GL/glx.h
 -
 openxr_headers/openxr.h
 /home/jungjik/dev/openxr-simple-example/openxr_headers/openxr.h
 openxr_headers/openxr_platform.h
 /home/jungjik/dev/openxr-simple-example/openxr_headers/openxr_platform.h
-SDL2/SDL.h
--
-SDL2/SDL_events.h
--
+wayland_init.h
+/home/jungjik/dev/openxr-simple-example/wayland_init.h
 math_3d.h
 /home/jungjik/dev/openxr-simple-example/math_3d.h
 
@@ -48,5 +44,19 @@ openxr.h
 stddef.h
 -
 stdint.h
+-
+
+/home/jungjik/dev/openxr-simple-example/wayland_init.h
+wayland-client.h
+-
+wayland-egl.h
+-
+EGL/egl.h
+-
+GL/gl.h
+-
+string.h
+-
+stdio.h
 -
 

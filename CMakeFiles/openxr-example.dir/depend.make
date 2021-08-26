@@ -6,4 +6,8 @@ CMakeFiles/openxr-example.dir/main.c.o: math_3d.h
 CMakeFiles/openxr-example.dir/main.c.o: openxr_headers/openxr.h
 CMakeFiles/openxr-example.dir/main.c.o: openxr_headers/openxr_platform.h
 CMakeFiles/openxr-example.dir/main.c.o: openxr_headers/openxr_platform_defines.h
+CMakeFiles/openxr-example.dir/main.c.o: wayland_init.h
+
+CMakeFiles/openxr-example.dir/wayland_init.c.o: wayland_init.c
+CMakeFiles/openxr-example.dir/wayland_init.c.o: wayland_init.h
 

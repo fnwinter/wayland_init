@@ -196,6 +196,33 @@ main.c.s:
 	$(MAKE) -f CMakeFiles/openxr-example.dir/build.make CMakeFiles/openxr-example.dir/main.c.s
 .PHONY : main.c.s
 
+wayland_init.o: wayland_init.c.o
+
+.PHONY : wayland_init.o
+
+# target to build an object file
+wayland_init.c.o:
+	$(MAKE) -f CMakeFiles/openxr-example.dir/build.make CMakeFiles/openxr-example.dir/wayland_init.c.o
+.PHONY : wayland_init.c.o
+
+wayland_init.i: wayland_init.c.i
+
+.PHONY : wayland_init.i
+
+# target to preprocess a source file
+wayland_init.c.i:
+	$(MAKE) -f CMakeFiles/openxr-example.dir/build.make CMakeFiles/openxr-example.dir/wayland_init.c.i
+.PHONY : wayland_init.c.i
+
+wayland_init.s: wayland_init.c.s
+
+.PHONY : wayland_init.s
+
+# target to generate assembly for a file
+wayland_init.c.s:
+	$(MAKE) -f CMakeFiles/openxr-example.dir/build.make CMakeFiles/openxr-example.dir/wayland_init.c.s
+.PHONY : wayland_init.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -212,6 +239,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... wayland_init.o"
+	@echo "... wayland_init.i"
+	@echo "... wayland_init.s"
 .PHONY : help
 
 

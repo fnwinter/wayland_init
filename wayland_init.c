@@ -1,27 +1,6 @@
 // gcc -o wayland-egl wayland-egl.c -lwayland-client -lwayland-egl -lEGL -lGL
 
-#include <wayland-client.h>
-#include <wayland-egl.h>
-#include <EGL/egl.h>
-#include <GL/gl.h>
-#include <string.h>
-
-#define WIDTH 256
-#define HEIGHT 256
-
-static struct wl_display *display;
-static struct wl_compositor *compositor = NULL;
-static struct wl_shell *shell = NULL;
-static EGLDisplay egl_display;
-static char running = 1;
-
-struct window {
-	EGLContext egl_context;
-	struct wl_surface *surface;
-	struct wl_shell_surface *shell_surface;
-	struct wl_egl_window *egl_window;
-	EGLSurface egl_surface;
-};
+#include "wayland_init.h"
 
 // listeners
 static void registry_add_object (void *data, struct wl_registry *registry, uint32_t name, const char *interface, uint32_t version) {
@@ -84,34 +63,30 @@ static void draw_window (struct window *window) {
 
 struct window window;
 int wayland_init () {
-	display = wl_display_connect (NULL);
-	struct wl_registry *registry = wl_display_get_registry (display);
+  printf("init called\n");
+	w_display = wl_display_connect (NULL);
+	struct wl_registry *registry = wl_display_get_registry (w_display);
 	wl_registry_add_listener (registry, &registry_listener, NULL);
-	wl_display_roundtrip (display);
+	wl_display_roundtrip (w_display);
 	
-	egl_display = eglGetDisplay (display);
+	egl_display = eglGetDisplay (w_display);
 	eglInitialize (egl_display, NULL, NULL);
 	
 	create_window (&window, WIDTH, HEIGHT);
+  if (!egl_display) {
+    printf("error egl_display ");
+  }
 }
 
 int wayland_running () {
   
   while (running) {
-		wl_display_dispatch_pending (display);
+		wl_display_dispatch_pending (w_display);
 		draw_window (&window);
 	}
 	
 	delete_window (&window);
 	eglTerminate (egl_display);
-	wl_display_disconnect (display);
+	wl_display_disconnect (w_display);
 	return 0;
 }
-
-
-void main()
-{
-  wayland_init();
-  wayland_running();
-}
-

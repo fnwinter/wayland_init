@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/openxr-example.dir/main.c.o"
+  "CMakeFiles/openxr-example.dir/wayland_init.c.o"
   "openxr-example"
   "openxr-example.pdb"
 )
