@@ -702,6 +702,7 @@ main(int argc, char** argv)
 	};
 
 	// create SDL window the size of the left eye & fill GL graphics binding info
+  /*
 	if (!init_sdl_window(&graphics_binding_gl.xDisplay, &graphics_binding_gl.visualid,
 	                     &graphics_binding_gl.glxFBConfig, &graphics_binding_gl.glxDrawable,
 	                     &graphics_binding_gl.glxContext,
@@ -710,6 +711,7 @@ main(int argc, char** argv)
 		printf("GLX init failed!\n");
 		return 1;
 	}
+  */
 
 	printf("Using OpenGL version: %s\n", glGetString(GL_VERSION));
 	printf("Using OpenGL Renderer: %s\n", glGetString(GL_RENDERER));
@@ -1071,11 +1073,13 @@ main(int argc, char** argv)
 	               graphics_binding_gl.glxContext);
 
 	// Set up rendering (compile shaders, ...) before starting the session
+  /*
 	if (init_gl(view_count, swapchain_lengths, &gl_rendering.framebuffers,
 	            &gl_rendering.shader_program_id, &gl_rendering.VAO) != 0) {
 		printf("OpenGl setup failed!\n");
 		return 1;
 	}
+  */
 
 	XrSessionActionSetsAttachInfo actionset_attach_info = {
 	    .type = XR_TYPE_SESSION_ACTION_SETS_ATTACH_INFO,
